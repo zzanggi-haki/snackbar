@@ -1,69 +1,74 @@
-import Image from "next/image";
+import Link from "next/link";
+import { AppCard } from "@/components/app-card";
+import { MenuBar } from "@/components/menu-bar";
+import { apps } from "@/lib/apps";
+import { formatDate, getFeed, getReleases, summarize } from "@/lib/github";
 
-export default function Home() {
+export default async function Home() {
+  const [feed, latest] = await Promise.all([
+    getFeed(6),
+    Promise.all(apps.map(async (app) => (await getReleases(app))[0]?.tag)),
+  ]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="mx-auto max-w-5xl px-5 sm:px-8">
+      <section className="pt-10 pb-16 sm:pt-14 sm:pb-20">
+        <MenuBar />
+        <p className="mt-14 text-sm font-semibold tracking-wide text-ketchup-deep uppercase">
+          One bite, one job.
+        </p>
+        <h1 className="display mt-3 text-[2.5rem] sm:text-6xl">
+          맥 메뉴바에 올려두는
+          <br />
+          간식들
+        </h1>
+        <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate">
+          가볍고, 한 입 크기고, 하나씩만 하는 메뉴바 앱. 필요한 것만 골라
+          올려두세요. 전부 무료고 소스도 열려 있어요.
+        </p>
+      </section>
+
+      <section id="shelf" className="scroll-mt-6">
+        <h2 className="text-sm font-semibold text-stone">오늘의 진열대</h2>
+        <div className="mt-4 grid gap-5 sm:grid-cols-2">
+          {apps.map((app, i) => (
+            <AppCard key={app.slug} app={app} version={latest[i]} />
+          ))}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+      </section>
+
+      {feed.length > 0 && (
+        <section className="mt-20">
+          <h2 className="text-sm font-semibold text-stone">최근 업데이트</h2>
+          <ol className="mt-4 divide-y divide-hairline border-y border-hairline">
+            {feed.map((item) => (
+              <li
+                key={`${item.app.slug}-${item.tag}`}
+                className="grid gap-x-6 gap-y-1 py-4 sm:grid-cols-[9rem_1fr]"
+              >
+                <time
+                  dateTime={item.publishedAt}
+                  className="tabular text-sm text-stone"
+                >
+                  {formatDate(item.publishedAt)}
+                </time>
+                <div>
+                  <Link
+                    href={`/${item.app.slug}#changelog`}
+                    className="font-semibold hover:text-ketchup-deep"
+                  >
+                    <span aria-hidden>{item.app.emoji}</span> {item.app.name}{" "}
+                    <span className="tabular">{item.tag}</span>
+                  </Link>
+                  <p className="mt-1 line-clamp-2 text-[15px] leading-relaxed text-slate">
+                    {summarize(item.body)}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
     </div>
   );
 }
