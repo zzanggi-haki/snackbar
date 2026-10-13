@@ -23,7 +23,9 @@ mac-downloads-sorter는 **제외** (안 씀).
 - 버그 신고는 각 레포 Issues 링크. 폼 직접 만들지 않는다.
 - 다운로드는 `.dmg` 직링크 + **한 줄 설치 커맨드 복사 버튼**
   (`curl -fsSL https://raw.githubusercontent.com/zzanggi-haki/<repo>/main/scripts/install.sh | bash`).
-  Soundwich에는 이미 있고, 나머지 앱에도 같은 패턴의 `scripts/install.sh`를 추가해야 한다.
+  네 앱 모두 `scripts/install.sh`가 있고, 각 레포 최신 릴리스에 고정 이름 `<App>.dmg` 자산이 있다
+  (Soundwich.dmg / Crumble.dmg / PAC-MEN-U.dmg / Mousse.dmg) — `releases/latest/download/<App>.dmg`로 접근 가능.
+  빌드는 각 레포 `scripts/build_dmg.sh` (universal, ad-hoc 서명).
 - 배포: Vercel. 분석: Vercel Analytics.
 
 ## 페이지
