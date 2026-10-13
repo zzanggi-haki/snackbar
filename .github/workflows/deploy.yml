@@ -3,7 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  # 앱 레포에 새 릴리스가 올라오면 다음 예약 빌드에서 반영된다
+  # 앱 레포에서 릴리스 직후 보내는 신호 (즉시 반영)
+  repository_dispatch:
+    types: [app-released]
+  # 신호를 놓쳤을 때의 안전망
   schedule:
     - cron: "17 */6 * * *"
   workflow_dispatch:
