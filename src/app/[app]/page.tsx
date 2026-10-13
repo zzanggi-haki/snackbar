@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { Suspense } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Feedback } from "@/components/feedback";
 import { InstallCommand } from "@/components/install-command";
 import {
   apps,
+  asset,
   dmgUrl,
   getApp,
   installCommand,
@@ -32,16 +32,10 @@ export async function generateMetadata({
   };
 }
 
-export default function AppPage({ params }: PageProps<"/[app]">) {
-  // 네 앱은 generateStaticParams로 미리 렌더된다. Suspense는 목록에 없는 주소(→ 404)용.
-  return (
-    <Suspense>
-      <AppDetail params={params} />
-    </Suspense>
-  );
-}
+// 목록에 없는 주소는 404
+export const dynamicParams = false;
 
-async function AppDetail({ params }: Pick<PageProps<"/[app]">, "params">) {
+export default async function AppPage({ params }: PageProps<"/[app]">) {
   const app = getApp((await params).app);
   if (!app) notFound();
 
@@ -56,7 +50,7 @@ async function AppDetail({ params }: Pick<PageProps<"/[app]">, "params">) {
           style={{ background: app.wrap }}
         >
           <Image
-            src={app.icon}
+            src={asset(app.icon)}
             alt=""
             width={88}
             height={88}
@@ -106,7 +100,7 @@ async function AppDetail({ params }: Pick<PageProps<"/[app]">, "params">) {
           style={{ background: app.wrap }}
         >
           <Image
-            src={app.shot.src}
+            src={asset(app.shot.src)}
             alt={app.shot.alt}
             width={app.shot.width}
             height={app.shot.height}

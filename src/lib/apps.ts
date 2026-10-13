@@ -126,6 +126,10 @@ export const apps: SnackApp[] = [
   },
 ];
 
+/** next/image는 basePath를 자동으로 붙여주지 않아서 public 경로에 직접 붙인다. */
+export const asset = (path: string) =>
+  `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${path}`;
+
 export function getApp(slug: string) {
   return apps.find((a) => a.slug === slug);
 }

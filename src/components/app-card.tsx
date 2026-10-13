@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { dmgUrl, type SnackApp } from "@/lib/apps";
+import { asset, dmgUrl, type SnackApp } from "@/lib/apps";
 
 export function AppCard({ app, version }: { app: SnackApp; version?: string }) {
   return (
@@ -10,7 +10,7 @@ export function AppCard({ app, version }: { app: SnackApp; version?: string }) {
         style={{ background: app.wrap }}
       >
         <Image
-          src={app.icon}
+          src={asset(app.icon)}
           alt=""
           width={64}
           height={64}

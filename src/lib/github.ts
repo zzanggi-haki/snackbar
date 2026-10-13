@@ -1,4 +1,3 @@
-import { cacheLife } from "next/cache";
 import { apps, OWNER, type SnackApp } from "./apps";
 
 export type Release = {
@@ -19,24 +18,21 @@ type GitHubRelease = {
   prerelease: boolean;
 };
 
+// 정적 내보내기라 빌드할 때 한 번 가져온다. 갱신은 배포 워크플로의 예약 빌드가 맡는다.
 async function fetchReleases(repo: string): Promise<Release[]> {
-  "use cache";
-  cacheLife("hours");
-
   const res = await fetch(
     `https://api.github.com/repos/${OWNER}/${repo}/releases?per_page=10`,
     {
       headers: {
         Accept: "application/vnd.github+json",
         "X-GitHub-Api-Version": "2022-11-28",
-        // 없어도 동작하지만(시간당 60회), Vercel 공유 IP에서는 토큰이 있어야 안전하다.
+        // 없어도 동작하지만(시간당 60회), Actions 러너는 IP를 공유해서 토큰이 있어야 안전하다.
         ...(process.env.GITHUB_TOKEN
           ? { Authorization: `Bearer ${process.env.GITHUB_TOKEN}` }
           : {}),
       },
     },
   );
-  // 실패는 캐시되지 않도록 던진다. 호출부(getReleases)가 받아서 빈 목록으로 바꾼다.
   if (!res.ok) throw new Error(`GitHub releases ${repo}: ${res.status}`);
 
   const data: GitHubRelease[] = await res.json();
