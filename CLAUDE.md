@@ -20,6 +20,7 @@ mac-downloads-sorter는 **제외** (안 씀).
 - **진실의 원천은 GitHub, 사이트는 창.** 앱 버전·변경내역·다운로드 링크는 각 레포의
   GitHub Releases에서 빌드 시 fetch. 릴리스만 올리면 사이트가 갱신되어야 한다.
 - 댓글·피드백은 **giscus**(GitHub Discussions). 별도 백엔드·DB 없음.
+  Discussions는 `zzanggi-haki/snackbar` 한 곳에 모은다 (댓글은 Announcements, 로드맵 투표는 Polls).
 - 버그 신고는 각 레포 Issues 링크. 폼 직접 만들지 않는다.
 - 다운로드는 `.dmg` 직링크 + **한 줄 설치 커맨드 복사 버튼**
   (`curl -fsSL https://raw.githubusercontent.com/zzanggi-haki/<repo>/main/scripts/install.sh | bash`).
@@ -44,7 +45,6 @@ howmuchbook(zzanggi-haki/howmuchbook)과 같은 결로 — Pretendard Variable �
 ## 아직 안 정한 것
 
 - 도메인 (snackbar.* 가격 확인 후 결정, 비싸면 서브 경로)
-- giscus용 Discussions를 어느 레포에 둘지 — 앱별 레포 vs `snackbar` 레포 하나에 카테고리로 모으기 (후자 추천)
 - 스크린샷 통일: 네 앱 모두 같은 배경에서 다시 찍기
 
 ## 홍보 (참고)

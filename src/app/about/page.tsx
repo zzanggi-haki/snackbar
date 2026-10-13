@@ -32,13 +32,21 @@ export default function AboutPage() {
       <section className="mt-20">
         <h2 className="text-2xl font-bold tracking-tight">다음 간식 고르기</h2>
         <p className="mt-3 text-[15px] leading-relaxed text-slate">
-          다음에 뭘 만들지, 지금 있는 간식에 뭘 더할지 투표하고 제안해 주세요.
+          다음에 뭘 만들지, 지금 있는 간식에 뭘 더할지 투표하고 제안해 주세요.{" "}
+          <a
+            href={`https://github.com/${OWNER}/snackbar/discussions/categories/polls`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-ink underline underline-offset-4"
+          >
+            진행 중인 투표 보기
+          </a>
         </p>
         <div className="mt-6">
           <Feedback
             term="roadmap"
-            fallbackHref={`https://github.com/${OWNER}`}
-            fallbackLabel="GitHub에서 zzanggi 찾아가기"
+            fallbackHref={`https://github.com/${OWNER}/snackbar/discussions`}
+            fallbackLabel="Discussions에서 이야기하기"
           />
         </div>
       </section>
