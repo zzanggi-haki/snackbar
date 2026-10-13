@@ -27,7 +27,7 @@ mac-downloads-sorter는 **제외** (안 씀).
   네 앱 모두 `scripts/install.sh`가 있고, 각 레포 최신 릴리스에 고정 이름 `<App>.dmg` 자산이 있다
   (Soundwich.dmg / Crumble.dmg / PAC-MEN-U.dmg / Mousse.dmg) — `releases/latest/download/<App>.dmg`로 접근 가능.
   빌드는 각 레포 `scripts/build_dmg.sh` (universal, ad-hoc 서명).
-- 배포: GitHub Pages (정적 내보내기 + Actions, 6시간마다 예약 빌드로 릴리스 반영). 수익화 계획이 있어 Vercel 무료 플랜은 제외.
+- 배포: GitHub Pages (정적 내보내기 + Actions, 앱 레포의 `app-released` 신호로 다시 빌드 — 예약 빌드는 두지 않는다). 수익화 계획이 있어 Vercel 무료 플랜은 제외.
   분석 도구는 미정.
 
 ## 페이지

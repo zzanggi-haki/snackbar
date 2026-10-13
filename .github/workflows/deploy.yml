@@ -6,9 +6,7 @@ on:
   # 앱 레포에서 릴리스 직후 보내는 신호 (즉시 반영)
   repository_dispatch:
     types: [app-released]
-  # 신호를 놓쳤을 때의 안전망
-  schedule:
-    - cron: "17 */6 * * *"
+  # 신호 없이 릴리스했을 때는 Actions 탭에서 수동 실행
   workflow_dispatch:
 
 permissions:
