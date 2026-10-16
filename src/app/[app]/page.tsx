@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { AppDemo } from "@/components/demo/AppDemo";
 import { Feedback } from "@/components/feedback";
 import { InstallCommand } from "@/components/install-command";
 import {
@@ -69,7 +70,12 @@ export default async function AppPage({ params }: PageProps<"/[app]">) {
         </p>
       </section>
 
-      <section className="mt-10">
+      {/* 페이지의 주인공: 어떻게 돌아가는지 */}
+      <section className="mt-10 -mx-5 sm:-mx-16">
+        <AppDemo slug={app.slug} />
+      </section>
+
+      <section className="mt-12">
         <h2 className="text-sm font-semibold text-stone">
           터미널에 한 줄 붙여넣으면 설치 끝
         </h2>
@@ -94,22 +100,6 @@ export default async function AppPage({ params }: PageProps<"/[app]">) {
         </p>
       </section>
 
-      {app.shot && (
-        <figure
-          className="mt-12 flex justify-center overflow-hidden rounded-3xl p-6 sm:p-10"
-          style={{ background: app.wrap }}
-        >
-          <Image
-            src={asset(app.shot.src)}
-            alt={app.shot.alt}
-            width={app.shot.width}
-            height={app.shot.height}
-            sizes={`${app.shot.shown}px`}
-            style={{ width: app.shot.shown }}
-            className="h-auto max-w-full rounded-xl shadow-xl"
-          />
-        </figure>
-      )}
 
       <section className="mt-12">
         <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-2">

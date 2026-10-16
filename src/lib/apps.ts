@@ -21,11 +21,19 @@ export type SnackApp = {
   // 카드·상세 헤더에 깔리는 앱별 포장지 색
   wrap: string;
   features: { title: string; body: string }[];
+  /** 앱 페이지 데모 아래 자막 — 데모 타임라인의 장면 순서와 1:1 */
+  scenes: string[];
 };
 
 export const apps: SnackApp[] = [
   {
     slug: "soundwich",
+    scenes: [
+      "메뉴바의 🥪를 누르면 지금 소리 내는 앱들이 보여요",
+      "Spotify 옆 드롭다운에서 블루투스 스피커를 고르면",
+      "Spotify만 스피커로 — 나머지는 그대로",
+      "Chrome은 에어팟으로. 동시에, 각자 다른 기기로",
+    ],
     name: "Soundwich",
     emoji: "🥪",
     tagline: "앱별 오디오 라우팅 — 앱마다 다른 출력 장치로",
@@ -55,6 +63,12 @@ export const apps: SnackApp[] = [
   },
   {
     slug: "crumble",
+    scenes: [
+      "쓰는 앱을 따라 시간이 자동으로 쌓여요",
+      "앱을 바꾸면 그 앱으로 부스러기가 옮겨가요",
+      "자리를 비우면 알아서 멈춰요",
+      "목표를 채우면 🎉 축하해줘요",
+    ],
     name: "Crumble",
     emoji: "🍪",
     tagline: "오늘 한 일이 부스러기처럼 남는 작업시간 트래커",
@@ -74,6 +88,12 @@ export const apps: SnackApp[] = [
   },
   {
     slug: "pac-men-u",
+    scenes: [
+      "아이콘이 너무 많아 노치 뒤로 숨어버렸어요",
+      "팩맨을 누르면 챱챱 — 먹어서 정리",
+      "우클릭하면 뱃속에 뭐가 있는지 보여요",
+      "다시 누르면 뱉고, 가려진 건 팩미 바에 펼쳐져요",
+    ],
     name: "Pac-men-u",
     emoji: "🟡",
     tagline: "픽셀 팩맨이 메뉴바 아이콘을 먹고 뱉는 메뉴바 정리기",
@@ -100,6 +120,12 @@ export const apps: SnackApp[] = [
   },
   {
     slug: "mousse",
+    scenes: [
+      "⌃⌥H — 커서에 하이라이트",
+      "⌃⌥L — 스포트라이트가 커서로 좁혀져요",
+      "⌃⌥A — 화면 위에 바로 그리기",
+      "다 그리고 3초 뒤 스르륵 사라져요",
+    ],
     name: "Mousse",
     emoji: "🍫",
     tagline: "화면공유·발표용 커서 강조 / 찾기 / 그리기",

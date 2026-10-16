@@ -51,3 +51,13 @@ howmuchbook(zzanggi-haki/howmuchbook)과 같은 결로 — Pretendard Variable �
 
 쓰레드 주력(주 3~4회: 문제→간식 / 빌드 로그 / 질문형 / 피드백 인용, 링크는 첫 댓글에),
 인스타 보조(15초 before/after 릴스 + 앱 카드 그리드). 생산성 카테고리.
+
+## 앱 데모 (앱 페이지의 주인공)
+
+GIF·영상 대신 **코드로 그린 움직이는 목업**. `src/components/demo/`
+- `Stage.tsx` — 960×600 좌표계 무대. 비트(ms) 타임라인을 반복 재생, 화면 밖이면 정지, 모션 줄이기면 posterBeat 정지,
+  자막(scenes) 클릭으로 장면 이동. 640px 미만에선 `focus(beat)` 영역을 따라가는 카메라(4:3)로 확대.
+- `primitives.tsx` — Desktop / MenuBar / Cursor / Popover / KeyHud 공통 부품.
+- `<App>Demo.tsx` — 앱별 `beats` + `frame(beat)` 상태 계산 + 렌더. 자막 문구는 `src/lib/apps.ts`의 `scenes`. 페이지 연결은 `AppDemo.tsx`.
+- `?demoBeat=N` 붙이면 그 비트에서 정지(전환 없음) → 썸네일·SNS 캡처, 레이아웃 점검용.
+  헤드리스 캡처: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --window-size=1100,900 --virtual-time-budget=4000 --screenshot=out.png "http://localhost:3000/soundwich/?demoBeat=5"`
